@@ -21,8 +21,8 @@ st.markdown("---")
 # LOAD AND CLEAN DATA
 # ============================================
 @st.cache_data
-def load_data():
-    df = pd.read_csv("Amazon Sale Report.csv", encoding="latin-1")
+def load_data(file):
+    df = pd.read_csv(file, encoding="latin-1")
     df = df.drop(columns=['fulfilled-by', 'Unnamed: 22', 'index'])
     remove_statuses = [
         'Cancelled',
@@ -38,8 +38,25 @@ def load_data():
     daily_demand = daily_demand.iloc[1:-1].reset_index(drop=True)
     return daily_demand
 
-daily_demand = load_data()
+st.sidebar.markdown("---")
+st.sidebar.header("📂 Upload Dataset")
+uploaded_file = st.sidebar.file_uploader(
+    "Upload Amazon Sale Report.csv",
+    type="csv",
+    help="Download from Kaggle: Amazon Sales Report dataset"
+)
 
+if uploaded_file is None:
+    st.info("👈 Please upload the Amazon Sale Report CSV file using the sidebar to get started.")
+    st.markdown("""
+    **How to get the dataset:**
+    1. Go to [Kaggle Dataset](https://www.kaggle.com/datasets/thedevastator/unlock-profits-with-e-commerce-sales-data)
+    2. Download `Amazon Sale Report.csv`
+    3. Upload it using the sidebar
+    """)
+    st.stop()
+
+daily_demand = load_data(uploaded_file)
 split_index = int(len(daily_demand) * 0.8)
 train = daily_demand[:split_index].copy()
 test = daily_demand[split_index:].copy()
