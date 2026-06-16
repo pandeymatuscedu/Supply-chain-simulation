@@ -18,7 +18,7 @@ st.markdown("**End-to-end demand forecasting and inventory optimization for Amaz
 st.markdown("---")
 
 # ============================================
-# LOAD AND CLEAN DATA
+# LOAD DATA
 # ============================================
 @st.cache_data
 def load_data():
@@ -28,7 +28,6 @@ def load_data():
 
 daily_demand = load_data()
 
-daily_demand = load_data(uploaded_file)
 split_index = int(len(daily_demand) * 0.8)
 train = daily_demand[:split_index].copy()
 test = daily_demand[split_index:].copy()
