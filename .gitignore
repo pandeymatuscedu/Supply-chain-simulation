@@ -1,0 +1,15 @@
+# Data files
+Amazon Sale Report.csv
+archive/
+archive 2/
+archive.zip
+
+# Generated images
+*.png
+
+# Python environment
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+.streamlit/
